@@ -1,0 +1,32 @@
+<h2 style="color: #008B8B;">Issue List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="color: #C70082;" class="table-warning">Issue Description</th>
+            <th scope="col" style="color: #C70082;" class="table-warning">Severity</th>
+            <th scope="col" style="color: #C70082;" class="table-warning">Status</th>
+            <th scope="col" class="table-warning"></th>
+            <th scope="col" class="table-warning"></th>
+
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr *ngFor="let issue of issues">
+            <td scope="row" class="table-light" style="color: #0099cc;"><a (click)="view(issue.description)">{{issue.description}}</a></td>
+            <td class="table-light" style="color: blue;">{{issue.severity}}</td>
+            <td class="table-light" style="color: blue;">{{issue.status}}</td>
+            <td>
+                <button type="button" style="border-radius: .5rem;background-color: #336699;border: #336699 ; color: white;" (click)="editissue(issue.id)" class="btn btn-primary">Edit</button>
+            </td>
+            <td>
+                <button type="button" style="border-radius: .5rem;background-color: red;border: red ; color: white;" (click)="deleteissue(issue.id)" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>
+<br>
+<a routerLink="add">
+    <button type="button" style="border-radius: .5rem;background-color: #336699;border: #336699 ; color: white;" class="btn btn-primary">Add Issue</button>
+</a>
