@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { Issue } from './issue.model';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
+import { IssueService } from '../issue.service';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-issue',
@@ -11,7 +13,12 @@ import { HttpClient } from '@angular/common/http';
 export class IssueComponent  implements OnInit{
   issues!:Issue[];
 
-  constructor(private router:Router,private http:HttpClient) { }
+//  description:string="";
+//  severity:string="";
+//  status:string="";
+//  id:Number = 0;
+
+  constructor(private issueService:IssueService,private router:Router) { } //private http:HttpClient
 
   // description:string="";
   // severity:string="";
@@ -24,9 +31,11 @@ export class IssueComponent  implements OnInit{
 
   getissue(){
     
-    this.http.get<Issue[]>(`http://127.0.0.1:8089/issues`).subscribe(data => {
-      this.issues = data;
-      console.log(data);
+    //this.http.get<Issue[]>(`http://127.0.0.1:8089/issues`).subscribe(data => {
+      //this.issueService.getissue().subscribe(data=>{
+      this.issueService.getissue().subscribe(data=>{
+       this.issues = data;
+       console.log(data);
       
     })
   }
@@ -36,11 +45,12 @@ export class IssueComponent  implements OnInit{
     }
 
   deleteissue(id:number){
-    this.http.delete(`http://127.0.0.1:8089/issues/${id}`).subscribe(data => {
-      console.log(data);
+   // this.http.delete(`http://127.0.0.1:8089/issues/${id}`).subscribe(data => {
+    this.issueService.deleteissue(id).subscribe(data =>{
+      console.log(data);})
       this.router.navigate(['issues']);
-    location.reload();
-    })
+      location.reload();
+    
     
   } 
 

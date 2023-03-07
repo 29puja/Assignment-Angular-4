@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component,OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Issue } from '../issue/issue.model';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
+import { IssueService } from '../issue.service';
 
 @Component({
   selector: 'app-add',
@@ -11,8 +12,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent {
-
-  constructor(private router:Router,private http:HttpClient) {}
+  
+  constructor(private issueService:IssueService,private router:Router) {}
 
   @ViewChild('formRef',{static:false})ahh!:NgForm;
  
@@ -34,17 +35,23 @@ export class AddComponent {
       this.issue.severity=this.addform.get("severity").value;
       this.issue.status=this.addform.get("status").value;
       console.log(this.issue);
-     
-     this.http.post("http://127.0.0.1:8089/add",this.issue).subscribe(data => {
-      console.log(data)
+      console.log(this.addform.get("description").value);
 
-      this.router.navigate(['./issues']);
+      this.issueService.addissue(this.issue).subscribe(data=>{
+        console.log(data);
+       this.router.navigate(['./issues']);
+      });
 
-     })
+    //  this.http.post("http://127.0.0.1:8089/add",this.issue).subscribe(data => {
+    //   console.log(data)
 
-} 
+
+      //this.router.navigate(['./issues']);
+       
+  }    
+
 get des():FormControl{
   return this.addform.get("description") as FormControl;
-} 
+  } 
 
 }

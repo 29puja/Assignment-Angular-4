@@ -45,7 +45,7 @@
 
                     <br>
                     <br>
-                    <button type="button" (click)="update()" [disabled]="addform.invalid" class="btn btn-primary">Submit</button>
+                    <button type="button" (click)="update()" (ngSubmit)="update()" [disabled]="addform.invalid" class="btn btn-primary">Submit</button>
 
                 </form>
             </div>
